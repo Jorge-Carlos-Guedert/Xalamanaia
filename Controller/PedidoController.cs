@@ -13,88 +13,88 @@ using static Models.ProdutoModelo;
 
 namespace Controllers
 {
-    
+
     public class PedidoController
     {
         string sql;
         Conexao conexao = new Conexao();
-        
-        
-            public List<PizzaModelo> ObterPizzas()
+
+
+        public List<PizzaModelo> ObterPizzas()
+        {
+            List<PizzaModelo> pizzas = new List<PizzaModelo>();
+
+            try
             {
-                List<PizzaModelo> pizzas = new List<PizzaModelo>();
+                MySqlConnection connection = conexao.getConexao();
+                sql = "SELECT * FROM pizza order by idtamanho";
 
-                try
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    MySqlConnection connection = conexao.getConexao();
-                    sql = "SELECT * FROM pizza order by idtamanho";
-
-                    connection.Open();
-                    MySqlCommand cmd = new MySqlCommand(sql, connection);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    PizzaModelo pizza = new PizzaModelo
                     {
-                        PizzaModelo pizza = new PizzaModelo
-                        {
-                            IdTamanho = Convert.ToInt32(reader["idtamanho"]),
-                            Tamanho = reader["tamanho"].ToString(),
-                            QtdSabores = Convert.ToInt32(reader["qtdsabores"])
-                        };
+                        IdTamanho = Convert.ToInt32(reader["idtamanho"]),
+                        Tamanho = reader["tamanho"].ToString(),
+                        QtdSabores = Convert.ToInt32(reader["qtdsabores"])
+                    };
 
-                        pizzas.Add(pizza);
-                    }
-
-                    reader.Close();
-                    connection.Close();
+                    pizzas.Add(pizza);
                 }
-                catch (Exception exTop)
-                {
-             
 
-                MessageBox.Show("Não foi possível obter Tamanhos do Banco de Dados",exTop.ToString());
-
-                
+                reader.Close();
+                connection.Close();
             }
-                return pizzas;
-            }
-    public List<SaboresModelo> ObterSabores()
-    {
-        List<SaboresModelo> sabores = new List<SaboresModelo>();
-
-        try
-        {
-            MySqlConnection connection = conexao.getConexao();
-            sql = "SELECT * FROM sabores order by descricaosabor";
-
-            connection.Open();
-            MySqlCommand cmd = new MySqlCommand(sql, connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            catch (Exception exTop)
             {
-                SaboresModelo sabor = new SaboresModelo
-                {
-                    IdSabores = Convert.ToInt32(reader["idsabores"]),
-                    DescricaoSabor = reader["descricaosabor"].ToString(),
-                    ValorBroto = Convert.ToDecimal(reader["valorBroto"]),
-                    ValorMedia = Convert.ToDecimal(reader["valorMedia"]),
-                    ValorGrande = Convert.ToDecimal(reader["valorGrande"]),
-                    ValorGigante = Convert.ToDecimal(reader["valorGigante"])
-                };
 
-                sabores.Add(sabor);
+
+                MessageBox.Show("Não foi possível obter Tamanhos do Banco de Dados", exTop.ToString());
+
+
             }
-
-            reader.Close();
-            connection.Close();
+            return pizzas;
         }
-        catch (Exception exTop)
+        public List<SaboresModelo> ObterSabores()
         {
+            List<SaboresModelo> sabores = new List<SaboresModelo>();
+
+            try
+            {
+                MySqlConnection connection = conexao.getConexao();
+                sql = "SELECT * FROM sabores order by descricaosabor";
+
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    SaboresModelo sabor = new SaboresModelo
+                    {
+                        IdSabores = Convert.ToInt32(reader["idsabores"]),
+                        DescricaoSabor = reader["descricaosabor"].ToString(),
+                        ValorBroto = Convert.ToDecimal(reader["valorBroto"]),
+                        ValorMedia = Convert.ToDecimal(reader["valorMedia"]),
+                        ValorGrande = Convert.ToDecimal(reader["valorGrande"]),
+                        ValorGigante = Convert.ToDecimal(reader["valorGigante"])
+                    };
+
+                    sabores.Add(sabor);
+                }
+
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception exTop)
+            {
                 MessageBox.Show("Não foi possível obter os Sabores do Banco de Dados", exTop.ToString());
             }
-        return sabores;
-    }
+            return sabores;
+        }
 
         public List<AdicionaisModelo> ObterAdicionais()
         {
@@ -132,18 +132,61 @@ namespace Controllers
             }
             catch (Exception exTop)
             {
-               MessageBox.Show("Não foi possível obter os Adicionais do Banco de Dados", exTop.ToString());
+                MessageBox.Show("Não foi possível obter os Adicionais do Banco de Dados", exTop.ToString());
             }
             return adicionais;
         }
 
+        public decimal MaiorDValor(decimal valor1,decimal valor2)
+        {
+            decimal maiorValor = 0;
+
+            
+            if (valor1 >= valor2)
+            {
+                maiorValor = valor1;
+                               
+            }
+            else
+            {
+                maiorValor = valor2;
+                               
+            }
+
+            return maiorValor;
+        }
+
+
+
+        public decimal MaiorTValor(decimal valor1, decimal valor2, decimal valor3)
+        {
+            decimal maiorValor = 0;
+
+
+            if (valor1 >= valor2 && valor1 >= valor3)
+            {
+                maiorValor = valor1; 
+                
+            }
+            else if (valor2 >= valor1 && valor2 >= valor3)
+            {
+                maiorValor = valor1;
+            }
+            else
+            {
+                maiorValor = valor1;
+
+            }
+
+            return maiorValor;
+        }
     }
 }
 
 // primeira tentativa de Commit
-        
 
-    
+
+
 
 
 

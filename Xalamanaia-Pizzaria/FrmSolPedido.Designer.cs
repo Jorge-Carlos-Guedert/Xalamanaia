@@ -41,7 +41,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbxQuantidade = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnExcluirItem = new System.Windows.Forms.Button();
             this.btnadicionaritem = new System.Windows.Forms.Button();
@@ -50,7 +49,7 @@
             this.cbxsabor2 = new System.Windows.Forms.ComboBox();
             this.cbxsabor1 = new System.Windows.Forms.ComboBox();
             this.cbxtamanho = new System.Windows.Forms.ComboBox();
-            this.cbxquantidades2 = new System.Windows.Forms.ComboBox();
+            this.cbxUnidades = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +65,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cbxquantidades2);
+            this.panel1.Controls.Add(this.cbxUnidades);
             this.panel1.Controls.Add(this.exibeteladicional);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.cbxAdicionais);
@@ -78,7 +77,6 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.cbxQuantidade);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnExcluirItem);
             this.panel1.Controls.Add(this.btnadicionaritem);
@@ -87,10 +85,11 @@
             this.panel1.Controls.Add(this.cbxsabor2);
             this.panel1.Controls.Add(this.cbxsabor1);
             this.panel1.Controls.Add(this.cbxtamanho);
-            this.panel1.Location = new System.Drawing.Point(12, 82);
+            this.panel1.Location = new System.Drawing.Point(12, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1420, 307);
+            this.panel1.Size = new System.Drawing.Size(1420, 804);
             this.panel1.TabIndex = 1;
+            
             // 
             // exibeteladicional
             // 
@@ -192,30 +191,6 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "1º Sabor";
             // 
-            // cbxQuantidade
-            // 
-            this.cbxQuantidade.DisplayMember = "0";
-            this.cbxQuantidade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxQuantidade.FormattingEnabled = true;
-            this.cbxQuantidade.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.cbxQuantidade.Location = new System.Drawing.Point(603, 36);
-            this.cbxQuantidade.Name = "cbxQuantidade";
-            this.cbxQuantidade.Size = new System.Drawing.Size(76, 21);
-            this.cbxQuantidade.TabIndex = 8;
-            this.cbxQuantidade.ValueMember = "0";
-            this.cbxQuantidade.SelectedIndexChanged += new System.EventHandler(this.cbxQuantidade_SelectedIndexChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -289,14 +264,14 @@
             this.cbxtamanho.TabIndex = 0;
             this.cbxtamanho.SelectedIndexChanged += new System.EventHandler(this.cbxtamanho_SelectedIndexChanged);
             // 
-            // cbxquantidades2
+            // cbxUnidades
             // 
-            this.cbxquantidades2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxquantidades2.FormattingEnabled = true;
-            this.cbxquantidades2.Location = new System.Drawing.Point(1081, 221);
-            this.cbxquantidades2.Name = "cbxquantidades2";
-            this.cbxquantidades2.Size = new System.Drawing.Size(63, 21);
-            this.cbxquantidades2.TabIndex = 22;
+            this.cbxUnidades.FormattingEnabled = true;
+            this.cbxUnidades.Location = new System.Drawing.Point(1065, 35);
+            this.cbxUnidades.Name = "cbxUnidades";
+            this.cbxUnidades.Size = new System.Drawing.Size(49, 21);
+            this.cbxUnidades.TabIndex = 23;
+            this.cbxUnidades.SelectedIndexChanged += new System.EventHandler(this.cbxUnidades_SelectedIndexChanged);
             // 
             // FrmSolPedido
             // 
@@ -327,8 +302,7 @@
         private System.Windows.Forms.Button btnadicionaritem;
         private System.Windows.Forms.TextBox valorpizza;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbxQuantidade;
-
+        
         private System.Windows.Forms.CheckedListBox checkedListBoxExcecao;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -340,6 +314,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox exibeteladicional;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox cbxquantidades2;
+        private System.Windows.Forms.ComboBox cbxUnidades;
     }
 }

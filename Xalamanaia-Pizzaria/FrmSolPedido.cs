@@ -21,7 +21,7 @@ namespace Xalamanaia_Pizzaria
 
         string tamanho;
 
-        int quantidade = 1;
+        int quantidade = 0;
         decimal valorFinal = 0.0M;
         decimal valorAdFinal = 0.0M;
 
@@ -50,19 +50,21 @@ namespace Xalamanaia_Pizzaria
             cbxsabor2.Items.Clear();
             cbxsabor3.Items.Clear();
             //cbxAdicionais.Items.Clear();
-            //cbxQuantidade.SelectedItem = "1";
+            valorpizza.Text = string.Empty;
+            exibeteladicional.Text = string.Empty;
             tamanho = cbxtamanho.SelectedItem as string;
             valorpizza.Clear();
 
             switch (tamanho)
             {
                 case "Broto":
-
+                    //cbxAdicionais.Items.Clear();
                     cbxsabor1.Visible = true;
                     CarregarSabores(tamanho);
 
                     cbxsabor2.Visible = false;
                     cbxsabor3.Visible = false;
+                    CarregaAdicionais(tamanho);
                     break;
 
                 case "Media":
@@ -108,22 +110,22 @@ namespace Xalamanaia_Pizzaria
 
             }
 
-            listaAdicionais = pedidoController.ObterAdicionais();
+            //listaAdicionais = pedidoController.ObterAdicionais();
 
-            foreach (var item in pedidoController.ObterAdicionais())
-            {
-                cbxAdicionais.Items.Add(item.descricao.ToString());
-            }
+            //foreach (var item in pedidoController.ObterAdicionais())
+            //{
+            //    cbxAdicionais.Items.Add(item.descricao.ToString());
+            //}
 
 
 
             cbxtamanho.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxtamanho.SelectedItem = "Nenhum";
-            string[] quantidade = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            string[] quantidade = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-            cbxQuantidade.Items.AddRange(quantidade);
+            cbxUnidades.Items.AddRange(quantidade);
 
-            cbxQuantidade.SelectedItem = "1";
+            cbxUnidades.SelectedItem = "0";
             string[] adicionais = { "Selecione" };
             cbxAdicionais.Items.AddRange(adicionais);
             cbxAdicionais.SelectedItem = "Selecione";
@@ -159,13 +161,16 @@ namespace Xalamanaia_Pizzaria
 
                 }
 
-                foreach (var item in pedidoController.ObterAdicionais())
-                {
-                    if (item.valoradicional_broto != 0)
-                    {
-                        cbxAdicionais.Items.Add(item.descricao.ToString());
-                    }
-                }
+                //cbxAdicionais.Items.Clear();
+                CarregaAdicionais(tamanho);
+
+                //foreach (var item in listaAdicionais)
+                //{
+                //    if (item.valoradicional_broto != 0)
+                //    {
+                //        cbxAdicionais.Items.Add(item.descricao.ToString());
+                //    }
+                //}
 
                 cbxAdicionais.DropDownStyle = ComboBoxStyle.DropDownList;
                 cbxsabor1.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -183,7 +188,7 @@ namespace Xalamanaia_Pizzaria
                         cbxsabor2.Items.Add(item.DescricaoSabor.ToString());
                     }
                 }
-                foreach (var item in pedidoController.ObterAdicionais())
+                foreach (var item in listaAdicionais)
                 {
                     if (item.valoradicional_media != 0)
                     {
@@ -205,7 +210,7 @@ namespace Xalamanaia_Pizzaria
                         cbxsabor2.Items.Add(item.DescricaoSabor.ToString());
                     }
                 }
-                foreach (var item in pedidoController.ObterAdicionais())
+                foreach (var item in listaAdicionais)
                 {
                     if (item.valoradicional_grande != 0)
                     {
@@ -225,7 +230,7 @@ namespace Xalamanaia_Pizzaria
                         cbxsabor3.Items.Add(item.DescricaoSabor.ToString());
                     }
                 }
-                foreach (var item in pedidoController.ObterAdicionais())
+                foreach (var item in listaAdicionais)
                 {
                     if (item.valoradicional_gigante != 0)
                     {
@@ -238,13 +243,13 @@ namespace Xalamanaia_Pizzaria
         private void cbxsabor1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            ValorPizza(tamanho);
+            ValorPizza(tamanho, quantidade);
 
         }
 
         private void cbxsabor2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ValorPizza(tamanho);
+            ValorPizza(tamanho, quantidade);
 
 
         }
@@ -252,13 +257,13 @@ namespace Xalamanaia_Pizzaria
 
         private void cbxsabor3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ValorPizza(tamanho);
+            ValorPizza(tamanho, quantidade);
         }
 
 
 
 
-        private void ValorPizza(string tamanho)
+        private void ValorPizza(string tamanho, int quantidade)
         {
             SaboresModelo sabor1 = new SaboresModelo();
             SaboresModelo sabor2 = new SaboresModelo();
@@ -272,6 +277,7 @@ namespace Xalamanaia_Pizzaria
             switch (tamanho)
             {
                 case "Broto":
+
                     if (cbxsabor1.SelectedItem.ToString() != null)
                     {
                         string selecionado1 = cbxsabor1.SelectedItem.ToString();
@@ -280,7 +286,7 @@ namespace Xalamanaia_Pizzaria
                         if (sabor1 != null)
                         {
                             decimal valor1 = sabor1.ValorBroto;
-                            valorpizza.Text = valor1.ToString();
+                            valorpizza.Text = (valor1 * quantidade).ToString();
                             valorFinal = decimal.Parse(valorpizza.Text);
                         }
 
@@ -296,9 +302,9 @@ namespace Xalamanaia_Pizzaria
                         if (adicionais != null)
                         {
                             decimal valoradicional = adicionais.valoradicional_broto;
-                            MessageBox.Show(valoradicional.ToString());
+                            //MessageBox.Show(valoradicional.ToString());
                             exibeteladicional.Text = valoradicional.ToString();
-                            valorAdFinal = decimal.Parse(exibeteladicional.Text);
+                            valorAdFinal = decimal.Parse(exibeteladicional.Text) * quantidade;
                         }
                     }
 
@@ -329,18 +335,21 @@ namespace Xalamanaia_Pizzaria
                         {
                             decimal valor1 = sabor1 != null ? sabor1.ValorMedia : 0;
                             decimal valor2 = sabor2 != null ? sabor2.ValorMedia : 0;
-                            if (valor1 >= valor2)
-                            {
-                                valorpizza.Text = valor1.ToString();
+                            decimal resultadoMaior = pedidoController.MaiorDValor(valor1, valor2);
+                            valorpizza.Text = resultadoMaior.ToString();
+                            valorFinal = resultadoMaior;
+                            //if (valor1 >= valor2)
+                            //{
+                            //    valorpizza.Text = valor1.ToString();
 
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
-                            else
-                            {
-                                valorpizza.Text = valor2.ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
+                            //else
+                            //{
+                            //    valorpizza.Text = valor2.ToString();
 
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
 
                         }
                     }
@@ -367,16 +376,20 @@ namespace Xalamanaia_Pizzaria
                         {
                             decimal valor1 = sabor1 != null ? sabor1.ValorGrande : 0;
                             decimal valor2 = sabor2 != null ? sabor2.ValorGrande : 0;
-                            if (valor1 >= valor2)
-                            {
-                                valorpizza.Text = valor1.ToString();
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
-                            else
-                            {
-                                valorpizza.Text = valor2.ToString();
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
+
+                            decimal resultadoMaior = pedidoController.MaiorDValor(valor1, valor2);
+                            valorpizza.Text = (resultadoMaior * quantidade).ToString();
+                            valorFinal = resultadoMaior;
+                            //if (valor1 >= valor2)
+                            //{
+                            //    valorpizza.Text = valor1.ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
+                            //else
+                            //{
+                            //    valorpizza.Text = valor2.ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
 
                         }
                     }
@@ -412,22 +425,26 @@ namespace Xalamanaia_Pizzaria
                             decimal valor2 = sabor2 != null ? sabor2.ValorGigante : 0;
                             decimal valor3 = sabor3 != null ? sabor3.ValorGigante : 0;
 
-                            if (valor1 >= valor2 && valor1 >= valor3)
-                            {
-                                valorpizza.Text = (valor1 * quantidade).ToString();
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
-                            else if (valor2 >= valor1 && valor2 >= valor3)
-                            {
-                                valorpizza.Text = (valor2 * quantidade).ToString();
-                                valorFinal = decimal.Parse(valorpizza.Text);
-                            }
-                            else
-                            {
-                                valorpizza.Text = (valor3 * quantidade).ToString();
-                                valorFinal = decimal.Parse(valorpizza.Text);
+                            decimal resultadoMaior = pedidoController.MaiorTValor(valor1, valor2, valor3);
+                            valorpizza.Text = (resultadoMaior * quantidade).ToString();
+                            valorFinal = resultadoMaior;
 
-                            }
+                            //if (valor1 >= valor2 && valor1 >= valor3)
+                            //{
+                            //    valorpizza.Text = (valor1 * quantidade).ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
+                            //else if (valor2 >= valor1 && valor2 >= valor3)
+                            //{
+                            //    valorpizza.Text = (valor2 * quantidade).ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+                            //}
+                            //else
+                            //{
+                            //    valorpizza.Text = (valor3 * quantidade).ToString();
+                            //    valorFinal = decimal.Parse(valorpizza.Text);
+
+                            //}
 
                         }
                     }
@@ -436,11 +453,7 @@ namespace Xalamanaia_Pizzaria
 
         }
 
-        private void cbxQuantidade_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            quantidade = int.Parse(cbxQuantidade.SelectedItem.ToString());
-            valorpizza.Text = Convert.ToString((valorFinal + valorAdFinal) * quantidade);
-        }
+
 
 
 
@@ -467,7 +480,78 @@ namespace Xalamanaia_Pizzaria
 
         private void cbxAdicionais_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ValorPizza(tamanho);
+            ValorPizza(tamanho, quantidade);
+        }
+
+
+
+        private void cbxUnidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            quantidade = int.Parse(cbxUnidades.SelectedItem.ToString());
+            ValorPizza(tamanho, quantidade);
+            valorpizza.Text = Convert.ToString(valorFinal + valorAdFinal);
+        }
+
+        private void CarregaAdicionais(string tamanho)
+        {
+            listaAdicionais = pedidoController.ObterAdicionais();
+
+            switch (tamanho)
+            {
+                case "Broto":
+                    foreach (var item in listaAdicionais)
+                    {
+
+                        if (item.valoradicional_broto != 0)
+                        {
+
+                            cbxAdicionais.Items.Add(item.descricao.ToString());
+                        }
+                    }
+                    break;
+
+                case "Media":
+                    foreach (var item in listaAdicionais)
+                    {
+
+                        if (item.valoradicional_media != 0)
+                        {
+
+                            cbxAdicionais.Items.Add(item.descricao.ToString());
+                        }
+                    }
+                    break;
+
+                case "Grande":
+                    foreach (var item in listaAdicionais)
+                    {
+
+                        if (item.valoradicional_grande != 0)
+                        {
+
+                            cbxAdicionais.Items.Add(item.descricao.ToString());
+                        }
+                    }
+                    break;
+
+                case "Gigante":
+                    foreach (var item in listaAdicionais)
+                    {
+
+                        if (item.valoradicional_gigante != 0)
+                        {
+
+                            cbxAdicionais.Items.Add(item.descricao.ToString());
+                        }
+                    }
+                    break;
+
+
+
+                default:
+                    break;
+            }
+
         }
     }
 }
