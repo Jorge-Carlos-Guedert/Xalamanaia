@@ -15,12 +15,9 @@ namespace Xalamanaia_Pizzaria
 
         List<SaboresModelo> listaSabores = new List<SaboresModelo>();
         List<AdicionaisModelo> listaAdicionais = new List<AdicionaisModelo>();
-
-
         PedidoController pedidoController = new PedidoController();
 
         string tamanho;
-
         int quantidade = 0;
         decimal valorFinal = 0.0M;
         decimal valorAdFinal = 0.0M;
@@ -36,9 +33,10 @@ namespace Xalamanaia_Pizzaria
             // Define apenas um Click
 
             checkedListBoxExcecao.CheckOnClick = true;
-
             cbxAdicionais.SelectedItem = "Selecione";
+            
 
+            
         }
 
         private void cbxtamanho_SelectedIndexChanged(object sender, EventArgs e)
@@ -54,11 +52,11 @@ namespace Xalamanaia_Pizzaria
             exibeteladicional.Text = string.Empty;
             tamanho = cbxtamanho.SelectedItem as string;
             valorpizza.Clear();
-
+            
             switch (tamanho)
             {
                 case "Broto":
-                    //cbxAdicionais.Items.Clear();
+                   
                     cbxsabor1.Visible = true;
                     CarregarSabores(tamanho);
 
@@ -73,6 +71,7 @@ namespace Xalamanaia_Pizzaria
                     cbxsabor2.Visible = true;
                     CarregarSabores(tamanho);
                     cbxsabor3.Visible = false;
+                    CarregaAdicionais(tamanho);
                     break;
                 case "Grande":
                     cbxsabor1.Visible = true;
@@ -289,8 +288,6 @@ namespace Xalamanaia_Pizzaria
                             valorpizza.Text = (valor1 * quantidade).ToString();
                             valorFinal = decimal.Parse(valorpizza.Text);
                         }
-
-
                     }
 
                     if (cbxAdicionais.SelectedItem.ToString() != null)
@@ -336,7 +333,7 @@ namespace Xalamanaia_Pizzaria
                             decimal valor1 = sabor1 != null ? sabor1.ValorMedia : 0;
                             decimal valor2 = sabor2 != null ? sabor2.ValorMedia : 0;
                             decimal resultadoMaior = pedidoController.MaiorDValor(valor1, valor2);
-                            valorpizza.Text = resultadoMaior.ToString();
+                            valorpizza.Text = (resultadoMaior * quantidade).ToString();
                             valorFinal = resultadoMaior;
                             //if (valor1 >= valor2)
                             //{
@@ -350,6 +347,21 @@ namespace Xalamanaia_Pizzaria
 
                             //    valorFinal = decimal.Parse(valorpizza.Text);
                             //}
+
+                            if (cbxAdicionais.SelectedItem.ToString() != null)
+                            {
+                                string adicionado = cbxAdicionais.SelectedItem.ToString();
+
+                                adicionais = listaAdicionais.Find(a => a.descricao == adicionado);
+
+                                if (adicionais != null)
+                                {
+                                    decimal valoradicional = adicionais.valoradicional_media;
+                                    //MessageBox.Show(valoradicional.ToString());
+                                    exibeteladicional.Text = valoradicional.ToString();
+                                    valorAdFinal = decimal.Parse(exibeteladicional.Text) * quantidade;
+                                }
+                            }
 
                         }
                     }
@@ -480,6 +492,7 @@ namespace Xalamanaia_Pizzaria
 
         private void cbxAdicionais_SelectedIndexChanged(object sender, EventArgs e)
         {
+            exibeteladicional.Text = string.Empty;
             ValorPizza(tamanho, quantidade);
         }
 
@@ -489,7 +502,7 @@ namespace Xalamanaia_Pizzaria
         {
             quantidade = int.Parse(cbxUnidades.SelectedItem.ToString());
             ValorPizza(tamanho, quantidade);
-            valorpizza.Text = Convert.ToString(valorFinal + valorAdFinal);
+            valorpizza.Text = Convert.ToString((valorFinal + valorAdFinal)* quantidade);
         }
 
         private void CarregaAdicionais(string tamanho)
