@@ -30,9 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastraCliente));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLimpar = new System.Windows.Forms.Button();
             this.lblAtencaoCliente = new System.Windows.Forms.Label();
+            this.btnExcluirCliente = new System.Windows.Forms.Button();
             this.btnPesquisarCliente = new System.Windows.Forms.Button();
             this.btncep = new System.Windows.Forms.Button();
+            this.btnConfirmarCliente = new System.Windows.Forms.Button();
             this.txtPesquisarCliente = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.DGVCliente = new System.Windows.Forms.DataGridView();
@@ -58,15 +61,14 @@
             this.txtNomeCliente = new System.Windows.Forms.TextBox();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.txtIdCliente = new System.Windows.Forms.TextBox();
-            this.btnLimpar = new System.Windows.Forms.Button();
-            this.btnExcluirCliente = new System.Windows.Forms.Button();
-            this.btnConfirmarCliente = new System.Windows.Forms.Button();
+            this.lblPesquisaAtencao = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblPesquisaAtencao);
             this.groupBox1.Controls.Add(this.btnLimpar);
             this.groupBox1.Controls.Add(this.lblAtencaoCliente);
             this.groupBox1.Controls.Add(this.btnExcluirCliente);
@@ -104,6 +106,27 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cadastrar Cliente";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // btnLimpar
+            // 
+            this.btnLimpar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpar.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.btnLimpar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnLimpar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
+            this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpar.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold);
+            this.btnLimpar.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnLimpar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpar.Image")));
+            this.btnLimpar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpar.Location = new System.Drawing.Point(31, 292);
+            this.btnLimpar.Name = "btnLimpar";
+            this.btnLimpar.Size = new System.Drawing.Size(102, 39);
+            this.btnLimpar.TabIndex = 31;
+            this.btnLimpar.Text = "Limpar";
+            this.btnLimpar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLimpar.UseVisualStyleBackColor = true;
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // lblAtencaoCliente
             // 
@@ -113,9 +136,29 @@
             this.lblAtencaoCliente.Size = new System.Drawing.Size(0, 13);
             this.lblAtencaoCliente.TabIndex = 30;
             // 
+            // btnExcluirCliente
+            // 
+            this.btnExcluirCliente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExcluirCliente.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.btnExcluirCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
+            this.btnExcluirCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
+            this.btnExcluirCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExcluirCliente.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluirCliente.ForeColor = System.Drawing.Color.Brown;
+            this.btnExcluirCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnExcluirCliente.Image")));
+            this.btnExcluirCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcluirCliente.Location = new System.Drawing.Point(293, 292);
+            this.btnExcluirCliente.Name = "btnExcluirCliente";
+            this.btnExcluirCliente.Size = new System.Drawing.Size(102, 39);
+            this.btnExcluirCliente.TabIndex = 29;
+            this.btnExcluirCliente.Text = "Excluir";
+            this.btnExcluirCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExcluirCliente.UseVisualStyleBackColor = true;
+            this.btnExcluirCliente.Click += new System.EventHandler(this.btnExcluirCliente_Click);
+            // 
             // btnPesquisarCliente
             // 
-            this.btnPesquisarCliente.Location = new System.Drawing.Point(670, 21);
+            this.btnPesquisarCliente.Location = new System.Drawing.Point(670, 25);
             this.btnPesquisarCliente.Name = "btnPesquisarCliente";
             this.btnPesquisarCliente.Size = new System.Drawing.Size(75, 23);
             this.btnPesquisarCliente.TabIndex = 28;
@@ -133,9 +176,29 @@
             this.btncep.UseVisualStyleBackColor = true;
             this.btncep.Click += new System.EventHandler(this.btncep_Click);
             // 
+            // btnConfirmarCliente
+            // 
+            this.btnConfirmarCliente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConfirmarCliente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnConfirmarCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnConfirmarCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGreen;
+            this.btnConfirmarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirmarCliente.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold);
+            this.btnConfirmarCliente.ForeColor = System.Drawing.Color.ForestGreen;
+            this.btnConfirmarCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmarCliente.Image")));
+            this.btnConfirmarCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfirmarCliente.Location = new System.Drawing.Point(151, 292);
+            this.btnConfirmarCliente.Name = "btnConfirmarCliente";
+            this.btnConfirmarCliente.Size = new System.Drawing.Size(127, 39);
+            this.btnConfirmarCliente.TabIndex = 11;
+            this.btnConfirmarCliente.Text = "Confirmar";
+            this.btnConfirmarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnConfirmarCliente.UseVisualStyleBackColor = true;
+            this.btnConfirmarCliente.Click += new System.EventHandler(this.btnConfirmarCliente_Click);
+            // 
             // txtPesquisarCliente
             // 
-            this.txtPesquisarCliente.Location = new System.Drawing.Point(488, 22);
+            this.txtPesquisarCliente.Location = new System.Drawing.Point(488, 26);
             this.txtPesquisarCliente.MaxLength = 11;
             this.txtPesquisarCliente.Name = "txtPesquisarCliente";
             this.txtPesquisarCliente.Size = new System.Drawing.Size(176, 20);
@@ -146,7 +209,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(429, 26);
+            this.label11.Location = new System.Drawing.Point(429, 30);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 13);
             this.label11.TabIndex = 24;
@@ -157,20 +220,24 @@
             this.DGVCliente.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGVCliente.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.DGVCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVCliente.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.DGVCliente.GridColor = System.Drawing.SystemColors.Control;
-            this.DGVCliente.Location = new System.Drawing.Point(429, 48);
+            this.DGVCliente.Location = new System.Drawing.Point(429, 50);
             this.DGVCliente.Name = "DGVCliente";
-            this.DGVCliente.Size = new System.Drawing.Size(330, 303);
+            this.DGVCliente.Size = new System.Drawing.Size(330, 295);
             this.DGVCliente.TabIndex = 23;
             this.DGVCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVCliente_CellClick);
             this.DGVCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVCliente_CellContentClick);
             // 
             // txtEstadoCliente
             // 
+            this.txtEstadoCliente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEstadoCliente.Location = new System.Drawing.Point(243, 228);
+            this.txtEstadoCliente.MaxLength = 2;
             this.txtEstadoCliente.Name = "txtEstadoCliente";
             this.txtEstadoCliente.Size = new System.Drawing.Size(152, 20);
-            this.txtEstadoCliente.TabIndex = 22;
+            this.txtEstadoCliente.TabIndex = 10;
+            this.txtEstadoCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEstadoCliente_KeyPress);
             // 
             // lblestado
             // 
@@ -184,9 +251,10 @@
             // txtCompCliente
             // 
             this.txtCompCliente.Location = new System.Drawing.Point(272, 198);
+            this.txtCompCliente.MaxLength = 60;
             this.txtCompCliente.Name = "txtCompCliente";
             this.txtCompCliente.Size = new System.Drawing.Size(123, 20);
-            this.txtCompCliente.TabIndex = 20;
+            this.txtCompCliente.TabIndex = 8;
             // 
             // lblComp
             // 
@@ -200,9 +268,11 @@
             // txtBairroCliente
             // 
             this.txtBairroCliente.Location = new System.Drawing.Point(52, 199);
+            this.txtBairroCliente.MaxLength = 60;
             this.txtBairroCliente.Name = "txtBairroCliente";
             this.txtBairroCliente.Size = new System.Drawing.Size(139, 20);
-            this.txtBairroCliente.TabIndex = 18;
+            this.txtBairroCliente.TabIndex = 7;
+            this.txtBairroCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBairroCliente_KeyPress);
             // 
             // lblBairro
             // 
@@ -216,9 +286,11 @@
             // txtCidadeCliente
             // 
             this.txtCidadeCliente.Location = new System.Drawing.Point(52, 228);
+            this.txtCidadeCliente.MaxLength = 60;
             this.txtCidadeCliente.Name = "txtCidadeCliente";
             this.txtCidadeCliente.Size = new System.Drawing.Size(139, 20);
-            this.txtCidadeCliente.TabIndex = 16;
+            this.txtCidadeCliente.TabIndex = 9;
+            this.txtCidadeCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCidadeCliente_KeyPress);
             // 
             // lblCidade
             // 
@@ -232,9 +304,10 @@
             // txtNumeroCliente
             // 
             this.txtNumeroCliente.Location = new System.Drawing.Point(319, 166);
+            this.txtNumeroCliente.MaxLength = 5;
             this.txtNumeroCliente.Name = "txtNumeroCliente";
             this.txtNumeroCliente.Size = new System.Drawing.Size(76, 20);
-            this.txtNumeroCliente.TabIndex = 14;
+            this.txtNumeroCliente.TabIndex = 6;
             this.txtNumeroCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumeroCliente_KeyPress);
             // 
             // lblNumero
@@ -251,7 +324,9 @@
             this.txtRuaCLiente.Location = new System.Drawing.Point(52, 166);
             this.txtRuaCLiente.Name = "txtRuaCLiente";
             this.txtRuaCLiente.Size = new System.Drawing.Size(210, 20);
-            this.txtRuaCLiente.TabIndex = 12;
+            this.txtRuaCLiente.TabIndex = 5;
+            this.txtRuaCLiente.TextChanged += new System.EventHandler(this.txtRuaCLiente_TextChanged);
+            this.txtRuaCLiente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRuaCLiente_KeyPress);
             // 
             // lblRua
             // 
@@ -265,9 +340,10 @@
             // txtCepCliente
             // 
             this.txtCepCliente.Location = new System.Drawing.Point(52, 133);
+            this.txtCepCliente.MaxLength = 8;
             this.txtCepCliente.Name = "txtCepCliente";
             this.txtCepCliente.Size = new System.Drawing.Size(139, 20);
-            this.txtCepCliente.TabIndex = 10;
+            this.txtCepCliente.TabIndex = 4;
             this.txtCepCliente.TextChanged += new System.EventHandler(this.txtCepCliente_TextChanged);
             this.txtCepCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCepCliente_KeyPress);
             // 
@@ -285,9 +361,10 @@
             this.txtTeleCliente.Location = new System.Drawing.Point(252, 64);
             this.txtTeleCliente.Name = "txtTeleCliente";
             this.txtTeleCliente.Size = new System.Drawing.Size(143, 20);
-            this.txtTeleCliente.TabIndex = 8;
+            this.txtTeleCliente.TabIndex = 2;
             this.txtTeleCliente.TextChanged += new System.EventHandler(this.txtTeleCliente_TextChanged);
             this.txtTeleCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTeleCliente_KeyPress);
+            this.txtTeleCliente.Leave += new System.EventHandler(this.txtTeleCliente_Leave);
             // 
             // lblTelefone
             // 
@@ -310,9 +387,10 @@
             // txtEmailCliente
             // 
             this.txtEmailCliente.Location = new System.Drawing.Point(52, 98);
+            this.txtEmailCliente.MaxLength = 100;
             this.txtEmailCliente.Name = "txtEmailCliente";
             this.txtEmailCliente.Size = new System.Drawing.Size(343, 20);
-            this.txtEmailCliente.TabIndex = 5;
+            this.txtEmailCliente.TabIndex = 3;
             this.txtEmailCliente.TextChanged += new System.EventHandler(this.txtEmailCliente_TextChanged);
             // 
             // lblNome
@@ -327,9 +405,11 @@
             // txtNomeCliente
             // 
             this.txtNomeCliente.Location = new System.Drawing.Point(52, 64);
+            this.txtNomeCliente.MaxLength = 60;
             this.txtNomeCliente.Name = "txtNomeCliente";
             this.txtNomeCliente.Size = new System.Drawing.Size(139, 20);
-            this.txtNomeCliente.TabIndex = 2;
+            this.txtNomeCliente.TabIndex = 1;
+            this.txtNomeCliente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNomeCliente_KeyPress);
             // 
             // lblCodigo
             // 
@@ -348,65 +428,13 @@
             this.txtIdCliente.Size = new System.Drawing.Size(139, 20);
             this.txtIdCliente.TabIndex = 0;
             // 
-            // btnLimpar
+            // lblPesquisaAtencao
             // 
-            this.btnLimpar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLimpar.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
-            this.btnLimpar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btnLimpar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
-            this.btnLimpar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpar.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold);
-            this.btnLimpar.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnLimpar.Image = ((System.Drawing.Image)(resources.GetObject("btnLimpar.Image")));
-            this.btnLimpar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpar.Location = new System.Drawing.Point(31, 292);
-            this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(102, 39);
-            this.btnLimpar.TabIndex = 31;
-            this.btnLimpar.Text = "Limpar";
-            this.btnLimpar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLimpar.UseVisualStyleBackColor = true;
-            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
-            // 
-            // btnExcluirCliente
-            // 
-            this.btnExcluirCliente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnExcluirCliente.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.btnExcluirCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
-            this.btnExcluirCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
-            this.btnExcluirCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcluirCliente.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirCliente.ForeColor = System.Drawing.Color.Brown;
-            this.btnExcluirCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnExcluirCliente.Image")));
-            this.btnExcluirCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExcluirCliente.Location = new System.Drawing.Point(293, 292);
-            this.btnExcluirCliente.Name = "btnExcluirCliente";
-            this.btnExcluirCliente.Size = new System.Drawing.Size(102, 39);
-            this.btnExcluirCliente.TabIndex = 29;
-            this.btnExcluirCliente.Text = "Excluir";
-            this.btnExcluirCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnExcluirCliente.UseVisualStyleBackColor = true;
-            this.btnExcluirCliente.Click += new System.EventHandler(this.btnExcluirCliente_Click);
-            // 
-            // btnConfirmarCliente
-            // 
-            this.btnConfirmarCliente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConfirmarCliente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnConfirmarCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnConfirmarCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleGreen;
-            this.btnConfirmarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmarCliente.Font = new System.Drawing.Font("Bookman Old Style", 10F, System.Drawing.FontStyle.Bold);
-            this.btnConfirmarCliente.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btnConfirmarCliente.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmarCliente.Image")));
-            this.btnConfirmarCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfirmarCliente.Location = new System.Drawing.Point(151, 292);
-            this.btnConfirmarCliente.Name = "btnConfirmarCliente";
-            this.btnConfirmarCliente.Size = new System.Drawing.Size(127, 39);
-            this.btnConfirmarCliente.TabIndex = 26;
-            this.btnConfirmarCliente.Text = "Confirmar";
-            this.btnConfirmarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnConfirmarCliente.UseVisualStyleBackColor = true;
-            this.btnConfirmarCliente.Click += new System.EventHandler(this.btnConfirmarCliente_Click);
+            this.lblPesquisaAtencao.AutoSize = true;
+            this.lblPesquisaAtencao.Location = new System.Drawing.Point(490, 10);
+            this.lblPesquisaAtencao.Name = "lblPesquisaAtencao";
+            this.lblPesquisaAtencao.Size = new System.Drawing.Size(0, 13);
+            this.lblPesquisaAtencao.TabIndex = 32;
             // 
             // FrmCadastraCliente
             // 
@@ -458,5 +486,6 @@
         private System.Windows.Forms.Button btnExcluirCliente;
         private System.Windows.Forms.Label lblAtencaoCliente;
         private System.Windows.Forms.Button btnLimpar;
+        private System.Windows.Forms.Label lblPesquisaAtencao;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Microsoft.Win32;
 using Models;
 using System;
 using System.Drawing;
@@ -44,7 +45,7 @@ namespace Xalamanaia_Pizzaria
 
         private void FrmCadastraCliente_Load(object sender, EventArgs e)
         {
-            DGVCliente.DataSource = Conexao.ObterDados(sqlApelido);
+            
         }
 
         private void DGVCliente_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -52,7 +53,7 @@ namespace Xalamanaia_Pizzaria
 
             codigo = Convert.ToInt32(DGVCliente.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
 
-            MessageBox.Show("usuario selecionado :" + codigo.ToString());
+
             txtIdCliente.Text = DGVCliente.Rows[e.RowIndex].Cells["ID"].Value.ToString();
             txtEmailCliente.Text = DGVCliente.Rows[e.RowIndex].Cells["Email"].Value.ToString();
             txtTeleCliente.Text = DGVCliente.Rows[e.RowIndex].Cells["Telefone"].Value.ToString();
@@ -149,13 +150,18 @@ namespace Xalamanaia_Pizzaria
                 verifica = clienteC.VericarTelefone(txtTeleCliente.Text);
 
 
-                if (clienteM.codigo>0)
+                if (clienteM.codigo > 0)
                 {
-
+                    var confirmacao = MessageBox.Show("Deseja atualizar", "Atenção", MessageBoxButtons.YesNo);
+                    if (confirmacao == DialogResult.Yes) { 
                     if (clienteC.cadastrarCliente(clienteM, 2) == true)
-                    {
-                        MessageBox.Show("Usuário atualizado " + txtNomeCliente.Text);
+                    {                       
                         DGVCliente.DataSource = Conexao.ObterDados(sqlApelido);
+                        LimpaTela();
+                    }
+                    }
+                    else
+                    {
                         LimpaTela();
                     }
                 }
@@ -235,20 +241,22 @@ namespace Xalamanaia_Pizzaria
         }
 
         private void btnPesquisarCliente_Click(object sender, EventArgs e)
-        {            
-            sql = "SELECT idCliente as ID," +
-                  " emailCliente as Email," +
-                  " telCliente as Telefone," +
-                  " nomeCliente as Nome," +
-                  " cepCliente as CEP," +
-                  " logCliente as Logradouro," +
-                  " numCliente as Numero," +
-                  " compCliente as Complemento," +
-                  " bairroCliente as Bairro," +
-                  " localidadeCliente as Cidade," +
-                  " ufCliente as Estado " +
-                  "from cliente where telCliente like '%" + txtPesquisarCliente.Text + "%'";
-            DGVCliente.DataSource = Conexao.ObterDados(sql);
+        {
+           int registro;
+            pesquisarTele();
+            LimpaTela();
+            registro = DGVCliente.RowCount;
+            if (registro < 2)
+            {
+                lblPesquisaAtencao.Text = "Nenhum registro encontrado";
+                lblPesquisaAtencao.ForeColor = Color.Red;
+                DGVCliente.Visible = false;
+            }
+            else
+            {
+                DGVCliente.Visible=true;
+                lblPesquisaAtencao.Text="";
+            }
         }
 
         private void btnExcluirCliente_Click(object sender, EventArgs e)
@@ -266,16 +274,23 @@ namespace Xalamanaia_Pizzaria
                 {
                     if (clienteM.codigo > 0)
                     {
-
-                        if (clienteC.cadastrarCliente(clienteM, 3) == true)
+                        var confirmacao = MessageBox.Show("Deseja excluir", "Atenção", MessageBoxButtons.YesNo);
+                        if (confirmacao == DialogResult.Yes)
                         {
-                            LimpaTela();
-                            MessageBox.Show(clienteM.nome + "Excluido com sucesso");
+                            if (clienteC.cadastrarCliente(clienteM, 3) == true)
+                            {
+                                LimpaTela();
+                                MessageBox.Show(clienteM.nome + "Excluido com sucesso");
+                            }
+                            else
+                            {
+                                LimpaTela();
+                                MessageBox.Show("Erro ao excluir");
+                            }
                         }
                         else
                         {
                             LimpaTela();
-                            MessageBox.Show("Erro ao excluir");
                         }
                     }
                 }
@@ -328,6 +343,85 @@ namespace Xalamanaia_Pizzaria
             txtTeleCliente.MaxLength = maxtele;
             char delete = (char)8;
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != delete;
+        }
+
+        private void txtEstadoCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsLetter(e.KeyChar) || Char.IsControl(e.KeyChar)))
+                e.Handled = true;
+
+        }
+
+        private void txtCidadeCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsLetter(e.KeyChar) || Char.IsControl(e.KeyChar)))
+                e.Handled = true;
+
+        }
+
+        private void txtBairroCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsLetter(e.KeyChar) || Char.IsControl(e.KeyChar)))
+                e.Handled = true;
+
+        }
+
+        private void txtRuaCLiente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtRuaCLiente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsLetter(e.KeyChar) || Char.IsControl(e.KeyChar)))
+                e.Handled = true;
+
+        }
+
+        private void txtNomeCliente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsLetter(e.KeyChar) || Char.IsControl(e.KeyChar)))
+                e.Handled = true;
+
+        }
+
+        private void txtTeleCliente_Leave(object sender, EventArgs e)
+        {
+            txtPesquisarCliente.Text = txtTeleCliente.Text;
+            pesquisarTele();
+            int registro = DGVCliente.RowCount;
+            if (registro < 2)
+            {
+                lblPesquisaAtencao.Text = "Nenhum registro encontrado";
+                lblPesquisaAtencao.ForeColor = Color.Red;
+                DGVCliente.Visible = false;
+            }
+            else
+            {
+                DGVCliente.Visible = true;
+                lblPesquisaAtencao.Text = "";
+            }
+        }
+        public void pesquisarTele()
+        {
+            sql = "SELECT idCliente as ID," +
+      " emailCliente as Email," +
+      " telCliente as Telefone," +
+      " nomeCliente as Nome," +
+      " cepCliente as CEP," +
+      " logCliente as Logradouro," +
+      " numCliente as Numero," +
+      " compCliente as Complemento," +
+      " bairroCliente as Bairro," +
+      " localidadeCliente as Cidade," +
+      " ufCliente as Estado " +
+      "from cliente where telCliente like '%" + txtPesquisarCliente.Text + "%'";
+            DGVCliente.DataSource = Conexao.ObterDados(sql);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
