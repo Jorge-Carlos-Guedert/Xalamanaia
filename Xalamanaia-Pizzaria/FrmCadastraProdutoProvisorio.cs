@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 
 namespace Xalamanaia_Pizzaria
 {
-    
+
     public partial class FrmCadastraProdutoProvisorio : Form
     {
         Conexao con = new Conexao();
@@ -50,7 +50,7 @@ namespace Xalamanaia_Pizzaria
                 {
                     MessageBox.Show("Erro ao cadastrar item");
                 }
-                
+
 
             }
             catch (Exception)
@@ -90,7 +90,7 @@ namespace Xalamanaia_Pizzaria
             prodModelo.valorMedia = Convert.ToDecimal(textBoxMedia.Text);
             prodModelo.valorGrande = Convert.ToDecimal(textBoxGrande.Text);
             prodModelo.valorGigante = Convert.ToDecimal(textBoxGigante.Text);
-            if(prodController.cadastrarPizza(prodModelo, 2) == true)
+            if (prodController.cadastrarPizza(prodModelo, 2) == true)
             {
                 MessageBox.Show("Item atualizado com sucesso");
                 dtPizza.DataSource = con.ObterDados("select sabores.idsabores, sabores.descricaosabor, sabores.valorBroto, sabores.valorMedia, sabores.valorGrande, sabores.valorGigante from sabores");
@@ -103,6 +103,7 @@ namespace Xalamanaia_Pizzaria
 
         private void dtPizza_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             prodModelo.idsabores = Convert.ToInt32(dtPizza.Rows[e.RowIndex].Cells[0].Value);
             textBoxCodigo.Text = prodModelo.idsabores.ToString();
             textBoxDesc.Text = dtPizza.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -110,10 +111,16 @@ namespace Xalamanaia_Pizzaria
             textBoxMedia.Text = dtPizza.Rows[e.RowIndex].Cells[3].Value.ToString();
             textBoxGrande.Text = dtPizza.Rows[e.RowIndex].Cells[4].Value.ToString();
             textBoxGigante.Text = dtPizza.Rows[e.RowIndex].Cells[5].Value.ToString();
-            
+
         }
 
-        private void btnExlcuir_Click(object sender, EventArgs e)
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
         {
             try
             {
@@ -122,9 +129,9 @@ namespace Xalamanaia_Pizzaria
                     MessageBox.Show("Código está vazio");
                     textBoxCodigo.Focus();
                 }
-                if(prodModelo.idsabores > 0)
+                if (prodModelo.idsabores > 0)
                 {
-                    if(prodController.cadastrarPizza(prodModelo, 3) == true)
+                    if (prodController.cadastrarPizza(prodModelo, 3) == true)
                     {
                         MessageBox.Show("Item excluido com sucesso");
                         dtPizza.DataSource = con.ObterDados("select sabores.idsabores, sabores.descricaosabor, sabores.valorBroto, sabores.valorMedia, sabores.valorGrande, sabores.valorGigante from sabores");
@@ -140,6 +147,47 @@ namespace Xalamanaia_Pizzaria
             {
                 MessageBox.Show("Erro");
             }
+        }
+
+        private void btnConfirmarCliente_Click(object sender, EventArgs e)
+        {
+            prodModelo.descricaosabor = textBoxDesc.Text;
+            prodModelo.valorBroto = Convert.ToDecimal(textBoxBroto.Text);
+            prodModelo.valorMedia = Convert.ToDecimal(textBoxMedia.Text);
+            prodModelo.valorGrande = Convert.ToDecimal(textBoxGrande.Text);
+            prodModelo.valorGigante = Convert.ToDecimal(textBoxGigante.Text);
+            int verifica = prodController.VericarProduto(textBoxDesc.Text);
+
+            if (!string.IsNullOrEmpty(textBoxCodigo.Text))
+            {
+                if (prodController.cadastrarPizza(prodModelo, 2) == true)
+                {
+                    MessageBox.Show("Item atualizado com sucesso");
+                    dtPizza.DataSource = con.ObterDados("select sabores.idsabores, sabores.descricaosabor, sabores.valorBroto, sabores.valorMedia, sabores.valorGrande, sabores.valorGigante from sabores");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao atualizar item");
+                }
+            }
+            else
+            {
+                if (prodController.cadastrarPizza(prodModelo, 1) == true && verifica < 0)
+                {
+                    MessageBox.Show("Item cadastrado com sucesso!");
+                    dtPizza.DataSource = con.ObterDados("select sabores.idsabores, sabores.descricaosabor, sabores.valorBroto, sabores.valorMedia, sabores.valorGrande, sabores.valorGigante from sabores");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao cadastrar item");
+                }
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            textBoxBroto.Text = "";
+            textBoxCodigo
         }
     }
 }

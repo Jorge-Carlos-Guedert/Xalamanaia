@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;//importei o objeto Modelo
 using Org.BouncyCastle.Math.EC;
+using MySql.Data.MySqlClient;
 
 namespace Controllers
 {
@@ -92,6 +94,21 @@ namespace Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public int VericarProduto(string descricao)
+        {
+            int registro;
+            string sql = "SELECT count(*) FROM sabores where descricaosabor=@descricao";
+            MySqlConnection sqlCon = con.getConexao();
+            sqlCon.Open();
+            MySqlCommand command = new MySqlCommand(sql, sqlCon);
+            command.CommandType = CommandType.Text;
+            command.CommandText = sql;
+            command.Parameters.AddWithValue("@descricao", descricao);
+
+            registro = Convert.ToInt32(command.ExecuteScalar());
+
+            return registro;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Xalamanaia_Pizzaria
         private void DGVCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            codigo = Convert.ToInt32(DGVCliente.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            codigo = Convert.ToInt32(DGVCliente.Rows[e.RowIndex].Cells[0].Value);
 
 
             txtIdCliente.Text = DGVCliente.Rows[e.RowIndex].Cells["ID"].Value.ToString();

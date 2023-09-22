@@ -32,11 +32,13 @@ namespace Xalamanaia_Pizzaria
             //Application.Run(new FrmCadastroPessoaProvisorio());
 
 
-            Application.Run(new FrmCadastraCliente());
+            //Application.Run(new FrmCadastraCliente());
             //Application.Run(new FrmCadastroClienteProvisorio());
 
             //Application.Run(new FrmSolPedido());
 
+            //Application.Run(new FormularioProduto());
+            Application.Run(new FrmCadastraProdutoProvisorio());
 
         }
     }
