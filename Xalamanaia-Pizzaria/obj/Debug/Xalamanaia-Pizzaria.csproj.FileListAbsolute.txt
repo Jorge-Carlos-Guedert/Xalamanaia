@@ -170,3 +170,4 @@ C:\Users\aluno\Source\Repos\Xalamanaia\Xalamanaia-Pizzaria\obj\Debug\Xalamanaia-
 C:\Users\aluno\Source\Repos\Xalamanaia\Xalamanaia-Pizzaria\obj\Debug\Xalamanaia-Pizzaria.csproj.CopyComplete
 C:\Users\aluno\Source\Repos\Xalamanaia\Xalamanaia-Pizzaria\obj\Debug\Xalamanaia-Pizzaria.exe
 C:\Users\aluno\Source\Repos\Xalamanaia\Xalamanaia-Pizzaria\obj\Debug\Xalamanaia-Pizzaria.pdb
+C:\Users\joca1\Source\Repos\Xalamanaia\Xalamanaia-Pizzaria\bin\Debug\BouncyCastle.Crypto.dll
